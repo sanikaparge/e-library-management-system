@@ -20,7 +20,7 @@ py -m venv venv
 python -m pip install -r backend\requirements.txt
 python backend\app.py
 ```
-Open http://127.0.0.1:5000
+Open http://13.200.246.140:5000
 
 ## Docker
 ```bash
