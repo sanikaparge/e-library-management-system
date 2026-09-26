@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Membership | E-Library{% endblock %}
+{% block content %}
+<div class="form-page">
+<div class="page-header reveal"><div><p class="eyebrow">MEMBERSHIP</p><h1>Join the Library</h1><p>Create a member profile with validated contact details.</p></div></div>
+<form class="form-card reveal" method="post" id="memberForm" novalidate>
+  <div class="form-grid">
+    <label>Full Name
+      <input name="name" required maxlength="120" autocomplete="name" placeholder="Your full name">
+    </label>
+    <label>Email
+      <input type="email" name="email" required maxlength="160" autocomplete="email" placeholder="name@example.com">
+    </label>
+    <label>Mobile Number
+      <div class="phone-field"><span>+91</span><input id="phone" name="phone" type="tel" required inputmode="numeric" autocomplete="tel" maxlength="10" minlength="10" pattern="[0-9]{10}" placeholder="10-digit mobile number"></div>
+      <small class="field-help" id="phoneHelp">Enter exactly 10 digits.</small>
+    </label>
+    <label>Membership
+      <select name="membership"><option>Standard</option><option>Student</option><option>Premium</option></select>
+    </label>
+    <label class="full">Address
+      <textarea name="address" rows="3" required maxlength="250" placeholder="Your address"></textarea>
+    </label>
+  </div>
+  <button class="btn primary" type="submit">Create Membership</button>
+</form>
+</div>
+{% endblock %}

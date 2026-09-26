@@ -1,0 +1,1 @@
+-- Flask-SQLAlchemy creates the schema automatically.

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Books | E-Library{% endblock %}
+{% block content %}
+<div class="page-header reveal">
+  <div><p class="eyebrow">LIBRARY COLLECTION</p><h1>Explore Books</h1><p>Search by title, author, category or ISBN.</p></div>
+  <a class="btn primary" href="{{url_for('add_book')}}">+ Add Book</a>
+</div>
+
+<section class="library-toolbar reveal">
+  <form class="filter-bar" method="get" id="bookSearchForm">
+    <div class="search-box">
+      <span>⌕</span>
+      <input id="bookSearch" name="q" value="{{q}}" placeholder="Search books, authors, categories..." autocomplete="off" aria-label="Search books">
+      <button type="button" class="clear-search" id="clearSearch" aria-label="Clear search">×</button>
+    </div>
+    <select name="category" id="categorySelect" aria-label="Filter by category">
+      <option value="">All categories</option>
+      {% for c in categories %}<option value="{{c}}" {% if c==selected_category %}selected{% endif %}>{{c}}</option>{% endfor %}
+    </select>
+    <button class="btn primary" type="submit">Search</button>
+  </form>
+  <div class="category-pills" aria-label="Book categories">
+    <a class="category-pill {% if not selected_category %}active{% endif %}" href="{{url_for('books',q=q)}}">All</a>
+    {% for c in categories %}
+      <a class="category-pill {% if c==selected_category %}active{% endif %}" href="{{url_for('books',category=c,q=q)}}">{{c}}</a>
+    {% endfor %}
+  </div>
+  <div class="results-line"><strong id="resultCount">{{books|length}}</strong> book(s) shown <span>•</span> <span id="searchHint">Live search is enabled</span></div>
+</section>
+
+<div class="book-grid enhanced-grid" id="bookGrid">
+{% for b in books %}
+<article class="book-card searchable-card" data-search="{{b.title}} {{b.author}} {{b.category}} {{b.isbn}}" data-category="{{b.category}}">
+  <div class="book-cover large"><span>{{'%02d'|format(loop.index)}}</span></div>
+  <div class="book-details">
+    <span class="tag">{{b.category}}</span>
+    <h3>{{b.title}}</h3>
+    <p>{{b.author}}</p>
+    <small>ISBN {{b.isbn}} · {{b.year or 'N/A'}}</small>
+    <br><span class="status {{b.status|lower}}">{{b.status}}</span>
+  </div>
+</article>
+{% else %}
+<div class="empty" id="emptyBooks">No books found for this selection.</div>
+{% endfor %}
+</div>
+<div class="empty live-empty" id="liveEmpty" hidden>No matching books. Try another search or category.</div>
+{% endblock %}

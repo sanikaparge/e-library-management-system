@@ -1,0 +1,1 @@
+-- Starter data is seeded by backend/app.py.
